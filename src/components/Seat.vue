@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import $ from 'jquery'
+// import $ from 'jquery'
 // import '../seat-charts.js'
 import vueToast from 'vue-toast'
 // import '../sm.min.js'
@@ -711,7 +711,9 @@ export default {
 	                return 'selected'; 
             	} else {
             		// this.vueToast.showToast('只能选择4个呦');
+            		
             		$.toast('只能选择4个呦');
+            		return 'available';
             	}
             } else if (this.status() == 'selected') { //已选中 
                 //更新数量 
