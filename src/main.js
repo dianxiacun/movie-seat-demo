@@ -7,6 +7,7 @@ import CityDemo from './components/CityDemo.vue'
 import MovieDetail from './components/MovieDetail.vue'
 import Movie from './components/Movie.vue'
 import ConfirmOrder from './components/ConfirmOrder.vue'
+import Payment from './components/Payment.vue'
 // import './assets/js/iSlider-animate.js'
 
 // Vue.component('seat', Seat)
@@ -17,8 +18,9 @@ Vue.component('city-demo', CityDemo)
 Vue.component('movie-detail', MovieDetail)
 Vue.component('movie', Movie)
 Vue.component('confirm-order', ConfirmOrder)
+Vue.component('payment', Payment)
 new Vue({
   el: 'body',
-  components: { City, CityDemo, MovieDetail, Movie, ConfirmOrder }
+  components: { City, CityDemo, MovieDetail, Movie, ConfirmOrder, Payment }
 })
 
