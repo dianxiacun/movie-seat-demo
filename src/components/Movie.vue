@@ -216,6 +216,7 @@
         width: 80%;
         height: 50%;
         margin-top: 2%;
+        font-size: 1rem;
         text-align: left;
     }
     .cinema-supplier {
