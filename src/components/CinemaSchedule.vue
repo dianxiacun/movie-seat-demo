@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<header class="bar bar-nav">
-    	  <a class="button button-link button-nav pull-left" href="" data-transition='slide-out'>
+    	  <a class="button button-link button-nav pull-left" href="" data-transition='slide-out' @click="goback">
     		  <span class="icon icon-left"></span>
     	  </a>
     	  <h1 class="title">{{ cinemaName }}</h1>
@@ -34,7 +34,7 @@
         				<div class="col-33 show-detail-light show-detail-right" v-if="item.suppliers.length > 1"><span class="show-detail-supplier">{{ item.suppliers.length }}家服务</span></div>
         			</div>
         			<div class="supplier-container">
-	        			<div class="row supplier-detail" v-if="($index + 1) == showIndex" transition="expand" v-for="sItem in item.suppliers">
+	        			<div class="row supplier-detail" v-if="($index + 1) == showIndex" transition="expand" v-for="sItem in item.suppliers" @click="goseat">
 	        				<div class="col-50">
 	        					<div class="col-50 supplier-logo">{{ sItem.supplierLogo }}</div>
 	        					<div class="col-50 supplier-name">{{ sItem.supplier}}</div>
@@ -64,7 +64,7 @@ export default {
 			tags: '剧情/奇幻/冒险',
 			defaultStyle: 'background-color:white',
 			selectStyle: 'background-color:#ed8e07',
-			isSelected: 1,
+			isSelected: 0,
 			showIndex: 0,
 			moviesInfo: [{
 				movieId: 1001,
@@ -249,6 +249,12 @@ export default {
 			} else {
 				this.showIndex = 0;
 			}
+		},
+		goback: function() {
+			this.$route.router.go(window.history.back());
+		},
+		goseat: function() {
+			this.$route.router.go({ path: '/seat' });
 		}
 	},
 	computed: {

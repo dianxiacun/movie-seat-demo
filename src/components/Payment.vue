@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<header class="bar bar-nav">
-    	    <a class="button button-link button-nav pull-left" href="" data-transition='slide-out'>
+    	    <a class="button button-link button-nav pull-left" href="" data-transition='slide-out' @click="goback">
     		    <span class="icon icon-left"></span>
     	    </a>
     	    <h1 class="title">付款</h1>
@@ -93,6 +93,11 @@
 					this.timer = '00:' + sec;
 				}
 			}(this.timerSec), 1000);
+		},
+		methods: {
+			goback: function() {
+				this.$route.router.go(window.history.back());
+			}
 		}
 	}
 </script>

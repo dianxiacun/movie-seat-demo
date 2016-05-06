@@ -1,7 +1,7 @@
 <template>
-  <div class="page"> 
+  <div class="container"> 
   	  <header class="bar bar-nav">
-    	  <a class="button button-link button-nav pull-left" href="" data-transition='slide-out'>
+    	  <a class="button button-link button-nav pull-left" href="" data-transition='slide-out' @click="goback">
     		  <span class="icon icon-left"></span>
     	  </a>
     	  <h1 class="title">{{ movieName }}</h1>
@@ -31,8 +31,8 @@
 	      	  <div class="total-payment">
 	      	  	  <b>¥<span id="total">0.0</span></b>
 	      	  </div>
-	      	  <div class="confirm-order">
-	      	  	  <a href="#" class="checkout-button">{{ isSelect ? '确认选择' : '请选座位'}}</a>
+	      	  <div class="confirm-order" @click="goorder">
+	      	  	  <a href="" class="checkout-button">{{ isSelect ? '确认选择' : '请选座位'}}</a>
 	      	  </div>
 	      </div>
       </div>
@@ -762,6 +762,14 @@ export default {
       }); 
                
       return total; 
+  	}
+  },
+  methods: {
+  	goback: function() {
+  		this.$route.router.go(window.history.back());
+  	},
+  	goorder: function() {
+  		this.$route.router.go({ path: '/order'});
   	}
   },
   components: {

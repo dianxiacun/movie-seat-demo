@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<header class="bar bar-nav">
-    	  <a class="button button-link button-nav pull-left" href="" data-transition='slide-out'>
+    	  <a class="button button-link button-nav pull-left" href="" data-transition='slide-out' @click="goback">
     		  <span class="icon icon-left"></span>
     	  </a>
     	  <h1 class="title">选择城市</h1>
@@ -82,6 +82,11 @@
 		ready: function() {
 			this.presentCity = remote_ip_info['city'];
 			// alert(city);
+		},
+		methods: {
+			goback: function() {
+				this.$route.router.go(window.history.back());
+			}
 		}
 	}
 </script>

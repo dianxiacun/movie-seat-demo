@@ -24,9 +24,6 @@
         		<div class="movie-actors"><b>主演: </b>{{ actors }}</div>
         		<div class="movie-plot"><b>剧情: </b><br/>{{ plot }}</div>
         	</div>
-        	<div class="movie-order">
-        		<p><a href="#" class="button button-big">选座购票</a></p>
-        	</div>
         </div>
     </div>    
 </template>
@@ -49,12 +46,6 @@
 				actors: '杰拉德/摩根弗里曼/安吉拉',
 				plot: '是否为市委时候覅我饿哦个任务读书氛围hi给我饿哦日是为给我'
 			}
-		},
-		created() {
-			$.showPreloader();
-		    setTimeout(function () {
-		        $.hidePreloader();
-		    }, 300);
 		},
 		methods: {
 			goback: function() {
@@ -104,9 +95,5 @@
 	.movie-plot {
 		margin-top: .5rem;
 		margin-left: 1rem;
-	}
-	.movie-order {
-		width: 100%;
-		height: 15%;
 	}
 </style>

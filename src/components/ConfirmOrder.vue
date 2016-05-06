@@ -1,10 +1,10 @@
 <template>
 	<div class="container">
 		<header class="bar bar-nav">
-    	    <a class="button button-link button-nav pull-left" href="" data-transition='slide-out'>
+    	    <a class="button button-link button-nav pull-left" href="" data-transition='slide-out' @click="goback">
     		    <span class="icon icon-left"></span>
     	    </a>
-    	    <button class="button button-link button-nav pull-right">取消</button>
+    	    <button class="button button-link button-nav pull-right" @click="goindex">取消</button>
     	    <h1 class="title">确认订单</h1>
         </header>
         <div class="content">
@@ -78,7 +78,7 @@
 				<div class="order-total-price">
 					<div class="total-price-num">¥{{ total }}</div>
 				</div>
-				<div class="order-submit"><div class="submit-button">立即下单</div></div>
+				<div class="order-submit" @click="gopayment"><div class="submit-button">立即下单</div></div>
 			</div>
         </div>
     </div>
@@ -104,6 +104,17 @@
 				price: 40.0,
 				total: 40.0,
 				discount: 5.0
+			}
+		},
+		methods: {
+			goback: function() {
+				this.$route.router.go(window.history.back());
+			},
+			goindex: function() {
+				this.$route.router.go({ path: '/movie' });
+			},
+			gopayment: function() {
+				this.$route.router.go({ path: '/payment'});
 			}
 		}
 	}

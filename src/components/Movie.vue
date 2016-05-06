@@ -4,7 +4,7 @@
     	    <a class="button button-link button-nav pull-left" href="" data-transition='slide-out'>
     		    <span class="icon icon-left"></span>
     	    </a>
-    	    <button class="button button-link button-nav pull-right">上海<span class="icon icon-caret"></span></button>
+    	    <button class="button button-link button-nav pull-right" @click="goposition">上海<span class="icon icon-caret"></span></button>
     	    <div class="buttons-row">
 	    		<a href="#now" class="tab-link button" v-bind:class="{'active': isNow}" v-on:click="changeStatus(0)">热映</a>
 	    		<a href="#preview" class="tab-link button" v-bind:class="{'active': isPreview}" v-on:click="changeStatus(1)">待映</a>
@@ -12,7 +12,7 @@
   			</div>
         </header>
         <div class="content">
-        	<div id="now" v-show="isNow">
+        	<div id="now" v-show="isNow" @click="gomoviedetail">
                 <div class="list-block">
                     <ul>
                         <li class="item-content" v-for="item in presentMovies">
@@ -29,7 +29,7 @@
                     </ul>
                 </div>   
             </div>
-        	<div id="preview" v-show="isPreview">
+        	<div id="preview" v-show="isPreview" @click="gopremoviedetail">
                 <div class="list-block">
                     <ul>
                         <li class="item-content" v-for="item in previewMovies">
@@ -46,7 +46,7 @@
                     </ul>
                 </div>  
             </div>
-        	<div id="cinema-list" v-show="isCinema">
+        	<div id="cinema-list" v-show="isCinema" @click="gocinemaschedule">
                 <div class="row cinema-selector">
                     <div class="col-50">
                         <div class="cinema-all">全部<span class="icon icon-caret"></span></div>
@@ -150,6 +150,18 @@
                     this.isNow = false;
                     this.isPreview = false;
                 }
+            },
+            gomoviedetail: function() {
+                this.$route.router.go({ path: '/moviedetail' });
+            },
+            gopremoviedetail: function() {
+                this.$route.router.go({ path: '/premoviedetail' });
+            },
+            goposition: function() {
+                this.$route.router.go({ path: '/city' });
+            },
+            gocinemaschedule: function() {
+                this.$route.router.go({ path: '/cinemaschedule' });
             }
         }
     }
