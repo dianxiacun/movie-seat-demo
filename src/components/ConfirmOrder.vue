@@ -65,7 +65,7 @@
   			          		<div class="item-title phone-title">优惠减免</div>
   			          		<div class="item-after phone-num">
   			          			<div class="ticket-num-detail"></div>
-  			          			<div class="phone-card">¥{{ total }}</div>
+  			          			<div class="phone-card">¥{{ discount }}</div>
   			          		</div>
   			        	</div>
   			        </li>
@@ -76,7 +76,7 @@
 			</div>
 			<div class="order-submit-detail">
 				<div class="order-total-price">
-					<div class="total-price-num">¥{{ total }}</div>
+					<div class="total-price-num">¥{{ (ticketNum * price) - discount }}</div>
 				</div>
 				<div class="order-submit" @click="gopayment"><div class="submit-button">立即下单</div></div>
 			</div>
@@ -105,6 +105,12 @@
 				total: 40.0,
 				discount: 5.0
 			}
+		},
+		created() {
+			$.showPreloader();
+		    setTimeout(function () {
+		        $.hidePreloader();
+		    }, 300);
 		},
 		methods: {
 			goback: function() {

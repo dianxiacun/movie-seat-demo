@@ -47,6 +47,12 @@
 				plot: '是否为市委时候覅我饿哦个任务读书氛围hi给我饿哦日是为给我'
 			}
 		},
+		created() {
+			$.showPreloader();
+		    setTimeout(function () {
+		        $.hidePreloader();
+		    }, 300);
+		},
 		methods: {
 			goback: function() {
 				this.$route.router.go(window.history.back());

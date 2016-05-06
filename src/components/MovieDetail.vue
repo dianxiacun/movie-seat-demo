@@ -24,7 +24,7 @@
         		<div class="movie-actors"><b>主演: </b>{{ actors }}</div>
         		<div class="movie-plot"><b>剧情: </b><br/>{{ plot }}</div>
         	</div>
-        	<div class="movie-order">
+        	<div class="movie-order" @click="goseat">
         		<p><a href="#" class="button button-big">选座购票</a></p>
         	</div>
         </div>
@@ -59,6 +59,9 @@
 		methods: {
 			goback: function() {
 				this.$route.router.go(window.history.back());
+			},
+			goseat: function() {
+				this.$route.router.go({ path: '/seat'});
 			}
 		}
 	}

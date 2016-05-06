@@ -238,6 +238,12 @@ export default {
 			}]
 		}
 	},
+	created() {
+		$.showPreloader();
+		setTimeout(function () {
+		    $.hidePreloader();
+		}, 300);
+	},
 	methods: {
 		select: function(n) {
 			this.isSelected = parseInt(n);

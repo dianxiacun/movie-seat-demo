@@ -79,6 +79,12 @@
 				dCities: ['大连', '大理']
 			}
 		},
+		created() {
+			$.showPreloader();
+		    setTimeout(function () {
+		        $.hidePreloader();
+		    }, 300);
+		},
 		ready: function() {
 			this.presentCity = remote_ip_info['city'];
 			// alert(city);

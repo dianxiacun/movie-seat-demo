@@ -754,6 +754,12 @@ export default {
 	} 
 
   },
+  created() {
+	$.showPreloader();
+		setTimeout(function () {
+		    $.hidePreloader();
+		}, 300);
+	},
   computed: {
   	recalculateTotal: function(sc) {
   	  var total = 0; 

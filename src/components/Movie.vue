@@ -46,7 +46,7 @@
                     </ul>
                 </div>  
             </div>
-        	<div id="cinema-list" v-show="isCinema" @click="gocinemaschedule">
+        	<div id="cinema-list" v-show="isCinema">
                 <div class="row cinema-selector">
                     <div class="col-50">
                         <div class="cinema-all">全部<span class="icon icon-caret"></span></div>
@@ -55,16 +55,16 @@
                         <div class="cinema-all">搜索<span class="icon icon-search"></span></div>
                     </div>
                 </div>
-                <div class="card-content cinema-detail" v-for="cinema in cinemas">
+                <div class="card-content cinema-detail" v-for="cinema in cinemas" @click="gocinemaschedule">
                     <div class="cinema-name"><b>{{ cinema.cinemaName }}</b></div>
                     <div class="cinema-supplier"><span class="cinema-supplier-detail">{{ cinema.supplierNum }}家服务</span></div>
                     <div class="cinema-addr">{{ cinema.addr }}</div>
-                </div>
-                <div id="geo-position">
-                   <span class="icon icon-message"></span>
-                   <span>{{ position }}</span>
-                </div>   
-            </div>            
+                </div> 
+                <div id="geo-position" v-show="isCinema">
+                    <span class="icon icon-message"></span>
+                    <span>{{ position }}</span>
+                </div>                 
+            </div>                         
         </div>
 	</div>
 </template>
