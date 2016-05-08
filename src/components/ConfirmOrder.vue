@@ -98,7 +98,7 @@
 				seat: '6排5号',
 				poster: '',
 				phone: '138 8888 8888',
-				coupon: '0',
+				coupon: '1',
 				supplier: '蜘蛛网',
 				ticketNum: 1,
 				price: 40.0,

@@ -16,13 +16,13 @@
                 <div class="list-block">
                     <ul>
                         <li class="item-content" v-for="item in presentMovies">
-                            <div class="item-title"><img class="movie-poster" src="http://image.tianjimedia.com/uploadImages/2012/110/FJ2OSE1E4NE4.jpg"></div>
+                            <img class="movie-poster" src="http://image.tianjimedia.com/uploadImages/2012/110/FJ2OSE1E4NE4.jpg">
                             <div class="item-main">
                                 <ul>
-                                    <li class="movie-name"><b>{{ item.movieName }}</b><button class="button pull-right" v-if="item.showType">{{ item.showType }}</button></li>
-                                    <li class="movie-score"><rater :value.sync="item.score" slot="value" active-color="#FFB90F" disabled></rater> 7.0</li>
-                                    <li class="movie-actor">{{ item.actors }}</li>
-                                    <li class="movie-detail-other">{{ item.country }} {{ item.tags }} {{ item.duration }}分钟</li>
+                                    <li><b>{{ item.movieName }}</b><button class="button pull-right" v-if="item.showType">{{ item.showType }}</button></li>
+                                    <li><rater :value.sync="item.score" slot="value" active-color="#FFB90F" disabled></rater> 7.0</li>
+                                    <li>{{ item.actors }}</li>
+                                    <li>{{ item.country }} {{ item.tags }} {{ item.duration }}分钟</li>
                                 </ul>
                             </div>
                         </li>
@@ -33,13 +33,13 @@
                 <div class="list-block">
                     <ul>
                         <li class="item-content" v-for="item in previewMovies">
-                            <div class="item-title"><img class="movie-poster" src="http://image.tianjimedia.com/uploadImages/2012/110/FJ2OSE1E4NE4.jpg"></div>
+                            <img class="movie-poster" src="http://image.tianjimedia.com/uploadImages/2012/110/FJ2OSE1E4NE4.jpg">
                             <div class="item-main">
                                 <ul>
-                                    <li class="movie-name"><b>{{ item.movieName }}</b><button class="button pull-right" v-if="item.showType">{{ item.showType }}</button></li>
-                                    <li class="movie-score"><rater :value.sync="item.score" slot="value" active-color="#FFB90F" disabled></rater> 7.0</li>
-                                    <li class="movie-actor">{{ item.actors }}</li>
-                                    <li class="movie-detail-other">{{ item.country }} {{ item.tags }} {{ item.duration }}分钟</li>
+                                    <li><b>{{ item.movieName }}</b><button class="button pull-right" v-if="item.showType">{{ item.showType }}</button></li>
+                                    <li><rater :value.sync="item.score" slot="value" active-color="#FFB90F" disabled></rater> 7.0</li>
+                                    <li>{{ item.actors }}</li>
+                                    <li>{{ item.country }} {{ item.tags }} {{ item.duration }}分钟</li>
                                 </ul>
                             </div>
                         </li>
@@ -49,10 +49,10 @@
         	<div id="cinema-list" v-show="isCinema">
                 <div class="row cinema-selector">
                     <div class="col-50">
-                        <div class="cinema-all">全部<span class="icon icon-caret"></span></div>
+                        <div class="cinema-all">{{ area }}<span class="icon icon-caret"></span></div>
                     </div>
                     <div class="col-50">
-                        <div class="cinema-all">搜索<span class="icon icon-search"></span></div>
+                        <div class="cinema-all"><a href="#" class="open-popup">搜索<span class="icon icon-search"></span></a></div>
                     </div>
                 </div>
                 <div class="card-content cinema-detail" v-for="cinema in cinemas" @click="gocinemaschedule">
@@ -63,9 +63,22 @@
                 <div id="geo-position" v-show="isCinema">
                     <span class="icon icon-message"></span>
                     <span>{{ position }}</span>
-                </div>                 
+                </div>
+                
             </div>                         
         </div>
+        <!-- Search Popup -->
+        <div class="popup popup-search">
+            <div class="content-block">
+                <div class="searchbar row">
+                    <div class="search-input col-80">
+                        <label class="icon icon-search" for="search"></label>
+                        <input type="search" id="search" placeholder="影院名称或地址关键字"/>
+                    </div>
+                    <a href="#" class="button button-fill button-primary col-20 close-popup">取消</a>
+                </div>
+            </div>
+        </div> 
 	</div>
 </template>
 
@@ -82,10 +95,11 @@
                 isPreview: false,
                 isCinema: false,
                 position: '上海市虹口区花园路128号',
+                area: '全部',
                 presentMovies: [{
                     score: 3.5,
                     movieName: '伦敦陷落',
-                    tags: '动作/惊悚/犯罪',
+                    tags: '动作/惊悚',
                     duration: 99,
                     showType: '3D',
                     actors: '杰拉德/摩根弗里曼/安吉拉',
@@ -104,7 +118,7 @@
                 previewMovies: [{
                     score: 2.8,
                     movieName: '熊猫',
-                    tags: '动作/惊悚/犯罪',
+                    tags: '动作/犯罪',
                     duration: 99,
                     showType: '3D',
                     actors: '杰拉德/摩根弗里曼/安吉拉',
@@ -186,7 +200,8 @@
         width: 70%;
     }
     .movie-poster {
-        width: 100%;
+        width: 30%;
+        height: 80%;
     }
     .item-main {
         white-space: nowrap;
@@ -205,11 +220,9 @@
     }
     .item-main li {
         width: 90%;
-        margin-bottom: .3rem;
         height: 20%;
-    }
-    .movie-poster {
-
+        float: left;
+        margin-bottom: .3rem;
     }
     .cinema-selector {
         height: 6%;

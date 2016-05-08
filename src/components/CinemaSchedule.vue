@@ -11,14 +11,14 @@
         		<div class="cinema-info">{{ cinemaName }}</div>
         		<div class="cinema-info">{{ cinemaAddr }}</div>
         	</bar>
-        	<slider :banner="banner"></slider>
+        	<slider :banner="banner" @click="changeImgNum"></slider>
         	<bar class="home-bar">
-        		<div class="movie-name"><span>{{ movieName }}</span></div>
-        		<div class="movie-tag"><span>{{ tags }}</span></div>
+        		<div class="movie-name"><span>{{ imgNum ? movieName[0] : movieName[1] }}</span></div>
+        		<div class="movie-tag"><span>{{ imgNum? tags[0] : tags[1] }}</span></div>
         	</bar>
         	<div class="show-time">
         		<div class="show-time-date">
-        			<div class="show-date" v-for="item in moviesInfo[0].schedule" v-on:click="select($index)" v-bind:style="isSelected === $index ? selectStyle : defaultStyle">{{ moviesInfo[0].schedule[$index].date }}</div>
+        			<div class="show-date" v-for="item in moviesInfo[0].schedule" @click="select($index)" v-bind:style="isSelected === $index ? selectStyle : defaultStyle">{{ moviesInfo[0].schedule[$index].date }}</div>
         		</div>
         	</div>
         	<bar class="schedule-bar">
@@ -58,10 +58,11 @@ import Bar from './Bar.vue'
 export default {
 	data() {
 		return {
+			imgNum: false,
 			cinemaName: '金逸国际影城-虹口龙之梦IMAX店',
 			cinemaAddr: '上海市虹口区西江湾路388号凯德龙之梦B座6F-7F',
-			movieName: '奇幻森林',
-			tags: '剧情/奇幻/冒险',
+			movieName: ['奇幻森林', '美国队长'],
+			tags: ['剧情/奇幻/冒险', '动作/剧情'],
 			defaultStyle: 'background-color:white',
 			selectStyle: 'background-color:#ed8e07',
 			isSelected: 0,
@@ -81,7 +82,7 @@ export default {
 						price: 48,
 						suppliers: [{
 							supplier: '蜘蛛网a111',
-							supplierLogo: 'path/logo_spider.png',
+							supplierLogo: 'spider.png',
 							originalPrice: 120,
 							presentPrice: 48
 						}]
@@ -94,13 +95,13 @@ export default {
 						price: 73,
 						suppliers: [{
 							supplier: '蜘蛛网a121',
-							supplierLogo: 'path/logo_spider.png',
+							supplierLogo: 'spider.png',
 							originalPrice: 120,
 							presentPrice: 73
 						},
 						{
 							supplier: '抠电影a122',
-							supplierLogo: 'path/logo_koco.png',
+							supplierLogo: 'koco.png',
 							originalPrice: 120,
 							presentPrice: 73
 						}]
@@ -254,6 +255,13 @@ export default {
 				this.showIndex = parseInt(index);
 			} else {
 				this.showIndex = 0;
+			}
+		},
+		changeImgNum: function() {
+			if (this.imgNum == false) {
+				this.imgNum = true;
+			} else {
+				this.imgNum = false;
 			}
 		},
 		goback: function() {

@@ -12,17 +12,18 @@ export default {
       slider: null
     }
   },
+  props: ['imgNum'],
   ready () {
-    let imgs = [{'content':'src/assets/img/1.jpg'}, {'content':'src/assets/img/1.jpg'}]
+    let imgs = [{'content':'src/assets/img/1.jpg'}, {'content':'src/assets/img/2.jpg'}]
     let self = this
     this.slider = new iSlider({
       dom: self.$el,
       data: imgs,
-      animateType: 'flow',
+      animateType: "flow",
       isVertical: false,
-      isLooping: true,
+      isLooping: false,
       isDebug: false,
-      isAutoplay: true
+      isAutoplay: false
     })
     // this.$http.get('banner.json')
     // .then(({data: {code, message, data}})=>{
@@ -40,6 +41,10 @@ export default {
     //     isAutoplay: true
     //   })
     // })
+    // 
+    // 图片高斯处理
+    // -webkit-filter: blur(20px);
+    // filter: url('/media/blur.svg#blur'); 
   }
 }
 </script>
@@ -68,8 +73,6 @@ export default {
     display: -webkit-box;
     -webkit-box-pack: start;
     list-style: none;
-    -webkit-filter: blur(20px);
-    filter: url('/media/blur.svg#blur');
 
     img {
       width: 100%;
