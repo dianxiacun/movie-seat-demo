@@ -11,7 +11,7 @@
         		<div class="cinema-info">{{ cinemaName }}</div>
         		<div class="cinema-info">{{ cinemaAddr }}</div>
         	</bar>
-        	<slider :posternum.sync="posternnum" @click="changeImgNum"></slider>
+        	<div id="islider"></div>
         	<bar class="home-bar">
         		<div class="movie-name"><span>{{ imgNum ? movieName[0] : movieName[1] }}</span></div>
         		<div class="movie-tag"><span>{{ imgNum? tags[0] : tags[1] }}</span></div>
@@ -54,11 +54,12 @@
 <script>
 import Slider from './Slider.vue'
 import Bar from './Bar.vue'
+import iSlider from '../assets/js/iSlider'
 
 export default {
 	data() {
 		return {
-			posternum: 0,
+			imgNum: false,
 			cinemaName: '金逸国际影城-虹口龙之梦IMAX店',
 			cinemaAddr: '上海市虹口区西江湾路388号凯德龙之梦B座6F-7F',
 			movieName: ['奇幻森林', '美国队长'],
@@ -67,6 +68,7 @@ export default {
 			selectStyle: 'background-color:#ed8e07',
 			isSelected: 0,
 			showIndex: 0,
+			slider: null,
 			moviesInfo: [{
 				movieId: 1001,
 				poster: 'img001',
@@ -245,6 +247,61 @@ export default {
 		    $.hidePreloader();
 		}, 300);
 	},
+	ready () {
+	    let imgs = [{'content':'src/assets/img/1.jpg'}, {'content':'src/assets/img/2.jpg'}]
+	    let self = this
+	    this.slider = new iSlider({
+	      dom: self.$el,
+	      wrap: '.wrap',
+	      data: imgs,
+	      animateType: 'flow',
+	      isVertical: false,
+	      isLooping: false,
+	      isDebug: false,
+	      isAutoplay: false,
+	      onrendercomplete: function(index, ele) {
+	        var bg = '<img class="bg-poster" src="' + this.data[0]['content'] + '">';
+	        $('#islider').prepend(bg);
+	      },
+	      onslidechange: function(index, ele) {
+	        console.log('index: ' + index);
+	        console.log('enter, index: ' + this.data[index]['content']);
+	        // var bg = 'url(' + this.data[index]['content'] + ')';
+	        var bg = '<div class="bg-poster"><img src="' + this.data[index]['content'] + '"></div>';
+	        // $('#islider').css("background-image", bg);
+	        $('.bg-poster').remove();
+	        $('#islider').prepend(bg);
+	        // $('#islider').backgroundBlur({
+	        //   imageURL: this.data[index]['content'],
+	        //   blurAmount: 10,
+	        //   imageClass: 'bg-blur'
+	        // });
+	        this.imgNum = index;
+	        console.log('imgNum: ' + this.imgNum);
+	        // this.setStyle(this.wrap, 'background-image', this.data[index]);
+	      }
+	    })
+	    // this.$http.get('banner.json')
+	    // .then(({data: {code, message, data}})=>{
+	    //   let imgs = []
+	    //   for (let i = 0 ; i < data.length; i++) {
+	    //     imgs.push(data[i])
+	    //   }
+	    //   let self = this
+	    //   this.slider = new ISlider({
+	    //     dom: self.$el,
+	    //     data: imgs,
+	    //     isVertical: false,
+	    //     isLooping: true,
+	    //     isDebug: false,
+	    //     isAutoplay: true
+	    //   })
+	    // })
+	    // 
+	    // 图片高斯处理
+	    // -webkit-filter: blur(20px);
+	    // filter: url('/media/blur.svg#blur'); 
+  },
 	methods: {
 		select: function(n) {
 			this.isSelected = parseInt(n);
@@ -411,5 +468,55 @@ export default {
 }
 .present-price {
 	float: left;
+}
+
+#islider {
+  height: 30%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  top: 0rem;
+}
+.bg-poster {
+    position: absolute;
+    z-index: 1;
+    -webkit-filter: blur(30px);
+    filter: url('/media/blur.svg#blur'); 
+    top: 0rem;
+    left: 0;
+}
+.bg-poster img {
+    width: 100%;
+    height: auto;
+}
+
+#islider ul {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    top: 0rem;
+    left: 0;
+    z-index: 99;
+}
+
+#islider ul li {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-pack: start;
+    list-style: none;
+    z-index: 99;
+}
+#islider ul li img {
+      width: 100%;
+      height: auto;
 }
 </style>

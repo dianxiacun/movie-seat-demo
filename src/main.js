@@ -10,6 +10,7 @@ import PreMovieDetail from './components/PreMovieDetail.vue'
 import Movie from './components/Movie.vue'
 import ConfirmOrder from './components/ConfirmOrder.vue'
 import Payment from './components/Payment.vue'
+import NewCinemaSchedule from './components/NewCinemaSchedule.vue'
 // import './assets/js/iSlider-animate.js'
 
 Vue.component('seat', Seat)
@@ -22,6 +23,7 @@ Vue.component('pre-movie-detail', PreMovieDetail)
 Vue.component('movie', Movie)
 Vue.component('confirm-order', ConfirmOrder)
 Vue.component('payment', Payment)
+Vue.component('new-cinema-schedule', NewCinemaSchedule)
 
 Vue.use(VueRouter)
 var router = new VueRouter({
@@ -58,6 +60,9 @@ router.map({
 },
 '/seat': {
   component: Seat
+},
+'/newcinemaschedule': {
+  component: NewCinemaSchedule
 }
 })
 
