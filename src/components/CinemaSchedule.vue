@@ -11,14 +11,14 @@
         		<div class="cinema-info">{{ cinemaName }}</div>
         		<div class="cinema-info">{{ cinemaAddr }}</div>
         	</bar>
-        	<slider :posternum.sync="posternnum" @click="changeImgNum"></slider>
+        	<slider></slider>
         	<bar class="home-bar">
-        		<div class="movie-name"><span>{{ imgNum ? movieName[0] : movieName[1] }}</span></div>
-        		<div class="movie-tag"><span>{{ imgNum? tags[0] : tags[1] }}</span></div>
+        		<div class="movie-name"><span>{{ movieName[posternum] }}</span></div>
+        		<div class="movie-tag"><span>{{ tags[posternum] }}</span></div>
         	</bar>
         	<div class="show-time">
         		<div class="show-time-date">
-        			<div class="show-date" v-for="item in moviesInfo[0].schedule" @click="select($index)" v-bind:style="isSelected === $index ? selectStyle : defaultStyle">{{ moviesInfo[0].schedule[$index].date }}</div>
+        			<div class="show-date" v-for="item in moviesInfo[posternum].schedule" @click="select($index)" v-bind:style="isSelected === $index ? selectStyle : defaultStyle">{{ moviesInfo[posternum].schedule[$index].date }}</div>
         		</div>
         	</div>
         	<bar class="schedule-bar">
@@ -155,7 +155,7 @@ export default {
 				movieName: '疯狂动物城',
 				tags: ['动画', '奇幻'],
 				schedule: [{
-					date: '2016-04-28',
+					date: '2016-04-29',
 					shows: [{
 						startTime: '9:00',
 						endTime: '10:46',
@@ -196,7 +196,7 @@ export default {
 					}]
 				},
 				{
-					date: '2016-04-29',
+					date: '2016-04-30',
 					shows: [{
 						startTime: '10:00',
 						endTime: '11:46',

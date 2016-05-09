@@ -10,10 +10,10 @@ import iSlider from '../assets/js/iSlider'
 export default {
   data () {
     return {
-      posternum: 567
+      poster: 567
     }
   },
-  props: ['imgNum'],
+  props: ['imgnum'],
   ready () {
     console.log('posternum: ' + this.posternum);
     let imgs = [{'content':'src/assets/img/1.jpg'}, {'content':'src/assets/img/2.jpg'}]
@@ -30,12 +30,14 @@ export default {
       onrendercomplete: function(index, ele) {
         var bg = '<img class="bg-poster" src="' + this.data[0]['content'] + '">';
         $('#islider').prepend(bg);
-        self.posternum = 0;
+        self.imgNum = 0;
+        self.$parent.posternum = 0;
       },
       onslidechange: function(index, ele) {
         console.log('index: ' + index);
-        self.posternum = index;
-        console.log('poster after change: ' + self.posternum);
+        self.imgNum = index;
+        self.$parent.posternum = index;
+        console.log('poster after change: ' + self.imgNum);
         console.log('enter, index: ' + this.data[index]['content']);
         // var bg = 'url(' + this.data[index]['content'] + ')';
         var bg = '<div class="bg-poster"><img src="' + this.data[index]['content'] + '"></div>';
