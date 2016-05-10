@@ -48,15 +48,18 @@
             </div>
         	<div id="cinema-list" v-show="isCinema">
                 <div class="row cinema-selector">
-                    <div class="col-50">
-                        <div class="cinema-all">
-                            <select id="selcet-city-area">
-                                <option v-for"area in city" value="$index + 1">area</option>
-                            </select>
-                        </div>
+                    <div class="col-50" @click="showcounty">
+                        <div class="cinema-all">{{ area }}<span class="icon icon-caret"></span></div>
                     </div>
                     <div class="col-50">
                         <div class="cinema-all"><a href="#" class="open-popup">搜索<span class="icon icon-search"></span></a></div>
+                    </div>
+                </div>
+                <div class="area-county" v-show="showCounty">
+                    <div class="card city" v-for="county in counties">
+                        <div class="card-content">
+                            <div class="card-content-inner city-name">{{ county }}</div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-content cinema-detail" v-for="cinema in cinemas" @click="gocinemaschedule">
@@ -100,7 +103,8 @@
                 isCinema: false,
                 position: '上海市虹口区花园路128号',
                 area: '全部',
-                city:[{'上海' : ['长宁', '虹口', '静安', '松江']}],
+                counties: ['长宁', '虹口', '静安', '松江'],
+                showCounty: false,
                 presentMovies: [{
                     score: 3.5,
                     movieName: '伦敦陷落',
@@ -181,6 +185,10 @@
             },
             gocinemaschedule: function() {
                 this.$route.router.go({ path: '/cinemaschedule' });
+            },
+            showcounty: function() {
+                console.log('showcounty: ' + this.showCounty);
+                this.showCounty = true;
             }
         }
     }
