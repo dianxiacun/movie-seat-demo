@@ -22,7 +22,7 @@
         		</div>
         	</div>
         	<bar class="schedule-bar">
-        		<div class="show-schedule" v-for="item in moviesInfo[isSelected].schedule[isSelected].shows" v-on:click="showSuppliers($index + 1, item.suppliers.length)">
+        		<div class="show-schedule" v-for="item in moviesInfo[posternum].schedule[posternum].shows" v-on:click="showSuppliers($index + 1, item.suppliers.length)">
         			<div class="row show-detail">
         				<div class="col-33"><b>{{ item.startTime }}</b></div>
         				<div class="col-33"><b>{{ item.hallType }}</b></div>
