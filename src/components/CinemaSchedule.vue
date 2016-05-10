@@ -18,7 +18,7 @@
         	</bar>
         	<div class="show-time">
         		<div class="show-time-date">
-        			<div class="show-date" v-for="item in moviesInfo[posternum].schedule" @click="select($index)" v-bind:style="isSelected === $index ? selectStyle : defaultStyle">{{ moviesInfo[posternum].schedule[$index].date }}</div>
+        			<div class="show-date" v-for="item in moviesInfo[posternum].schedule" @click="select($index)" v-bind:style="isSelected === $index ? selectStyle : defaultStyle">{{ moviesInfo[isSelected].schedule[$index].date }}</div>
         		</div>
         	</div>
         	<bar class="schedule-bar">

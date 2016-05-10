@@ -31,8 +31,11 @@
 	      	  <div class="total-payment">
 	      	  	  <b>¥<span id="total">0.0</span></b>
 	      	  </div>
-	      	  <div class="confirm-order" @click="goorder">
-	      	  	  <a href="" class="checkout-button">{{ isSelect ? '确认选择' : '请选座位'}}</a>
+	      	  <div class="confirm-order" v-if="isSelect" @click="goorder">
+	      	  	  <a href="" class="checkout-button" v-bind:class="{ 'confirm-seat' : isSelect}">{{ '确认选择'}}</a>
+	      	  </div>
+	      	  <div class="confirm-order" v-if="!isSelect">
+	      	  	  <a href="" class="checkout-button">{{ '请选座位'}}</a>
 	      	  </div>
 	      </div>
       </div>
@@ -66,6 +69,7 @@ export default {
   },
   ready () {
   	let price = 80 //ticket price
+  	let self = this
   	let $cart = $('#selected-seats'), //座位区 
     $counter = $('#counter'), //票数 
     $total = $('#total'); //总计金额 
@@ -700,9 +704,9 @@ export default {
 	   
 	                $counter.text(sc.find('selected').length+1); 
 	                $total.text(recalculateTotal(sc)+price);
-	            	if (!this.isSelect) {
-	            		this.isSelect = true;
-	            		console.log('isSelect: ' + this.isSelect);
+	            	if (!self.isSelect) {
+	            		self.isSelect = true;
+	            		console.log('isSelect: ' + self.isSelect);
 	            		$('.checkout-button').html('确认选择');
 	            		$('.checkout-button').css('background','#feae1b');
 	            		$('.selected-seats-warn').hide();
@@ -726,8 +730,8 @@ export default {
                 //可选座 
                 
                 if (sc.find('selected').length == 1) {
-                	this.isSelect = false;
-                	console.log('isSelect: ' + this.isSelect);
+                	self.isSelect = false;
+                	console.log('isSelect: ' + self.isSelect);
                 	$('.checkout-button').html('请选座位');
                 	$('.checkout-button').css('background','grey');
                 	$('.selected-seats-info').hide();
@@ -810,6 +814,7 @@ span.seatCharts-legendDescription {margin-left: 5px;line-height: 30px;}
 .supplier-info{width: 100%;height: 5%;text-align: center;display: block;}
 .supplier-detail{width: 100%;margin-top:10px;margin-left: auto;margin-right:auto;font-size: .85rem;font-weight: 500;line-height: 2.2rem;color: #3d4145;text-align: center;white-space: nowrap;}
 .checkout-button {display: block;width:100%; height:100%; line-height:36px;text-align: center;margin: 0 auto;border:1px solid #999;font-size: 18px; cursor:pointer;color: white;background-color: grey;} 
+.confirm-seat {background: #feae1b;}
 #selected-seats {list-style: none;max-height: 150px;overflow-y: auto;overflow-x: none;width: 100%;margin-left: auto;margin-right: auto;} 
 #selected-seats li{float:left; width:60px; height:26px; line-height:26px;background:#f7f7f7; margin:3px; font-size:14px; font-weight:bold; text-align:center}
 .payment-details {width: 100%;height: 7%;margin-bottom: 0;background-color: #f7f7f8;display: block;}
