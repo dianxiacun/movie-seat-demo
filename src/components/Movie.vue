@@ -49,7 +49,11 @@
         	<div id="cinema-list" v-show="isCinema">
                 <div class="row cinema-selector">
                     <div class="col-50">
-                        <div class="cinema-all">{{ area }}<span class="icon icon-caret"></span></div>
+                        <div class="cinema-all">
+                            <select id="selcet-city-area">
+                                <option v-for"area in city" value="$index + 1">area</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-50">
                         <div class="cinema-all"><a href="#" class="open-popup">搜索<span class="icon icon-search"></span></a></div>
@@ -96,6 +100,7 @@
                 isCinema: false,
                 position: '上海市虹口区花园路128号',
                 area: '全部',
+                city:[{'上海' : ['长宁', '虹口', '静安', '松江']}],
                 presentMovies: [{
                     score: 3.5,
                     movieName: '伦敦陷落',

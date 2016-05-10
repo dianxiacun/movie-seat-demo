@@ -66,37 +66,56 @@
 				total: 43,
 				balance: 1.2,
 				timer: '10:28',
-				timerSec: 628
+				time: 68,
+				interval: null,
+				index: 0
 			}
 		},
 		ready() {
-			setTimeout(function(n) {
-				var min = 0;
-				var sec = 0;
-				var seconds = n;
-				console.log('seconds: ' + seconds);
-				if (seconds > 600) {
-					seconds -= 1;
-					this.timerSec = seconds;
-					min = seconds/60;
-					sec = seconds%60;
-					this.timer = min + ':' + sec;
-				} else if (seconds > 60) {
-					seconds -= 1;
-					this.timerSec = seconds;
-					min = seconds/60;
-					sec = seconds%60;
-					this.timer = '0' + min + ':' + sec;
-				} else if (seconds > 0){
-					seconds -= 1;
-					this.timerSec = seconds;
-					this.timer = '00:' + sec;
-				}
-			}(this.timerSec), 1000);
+			if (this.time > 0) {
+				this.tick();
+			}
 		},
 		methods: {
 			goback: function() {
 				this.$route.router.go(window.history.back());
+			},
+			tick: function() {
+				let _this = this;
+				this.interval = setInterval(function() {
+					let min = 0;
+					let sec = 0;
+					if (_this.time > 0) {
+						min = parseInt(_this.time/60);
+						sec = _this.time%60;
+						if (min < 10) {
+							min = '0' + min;
+						}
+						if (sec < 10) {
+							sec = '0' + sec;
+						}
+						_this.timer = min + ':' + sec; 
+						_this.time--;
+					} else {
+						_this.stop();
+						_this.timer = '00:00';
+						_this.index++;
+						_this.$dispatch('on-finish', _this.index);
+					}
+				}, 1000);
+			},
+			stop: function() {
+				clearInterval(this.interval);
+			}
+		},
+		watch: {
+			start: function(newVal, oldVal) {
+				if (newVal === true && oldVal === false && this.time > 0) {
+					this.tick();
+				}
+				if (newVal === false && oldVal === true) {
+					this.stop();
+				}
 			}
 		}
 	}
