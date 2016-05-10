@@ -68,7 +68,6 @@
 				timer: '10:28',
 				time: 68,
 				interval: null,
-				index: 0
 			}
 		},
 		ready() {
@@ -99,7 +98,6 @@
 					} else {
 						_this.stop();
 						_this.timer = '00:00';
-						_this.index++;
 						_this.$dispatch('on-finish', _this.index);
 					}
 				}, 1000);
