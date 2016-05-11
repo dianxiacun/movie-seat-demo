@@ -12,7 +12,7 @@
 			        <a class="searchbar-cancel">取消</a>
 			        <div class="search-input">
 			          <label class="icon icon-search" for="search"></label>
-			          <input type="search" id='search' placeholder='输入城市或者行政区'/>
+			          <input type="search" id='tt' placeholder='输入城市或者行政区'/>
 			        </div>
 			    </div>
 			</div>
@@ -88,6 +88,24 @@
 		ready: function() {
 			this.presentCity = remote_ip_info['city'];
 			// alert(city);
+			$(function() {
+				console.log('ready go?');
+				$("#tt").bigAutocomplete(
+					{width:300, data:[{
+						title:"中国好声音",
+						result:{ff:"qq"}}, {
+						title:"中国移动网上营业厅"}, {
+						title:"中国银行"}, {
+						title:"中国移动"}, {
+						title:"中国好声音第三期"}, {
+						title:"中国好声音 第一期"}, {
+						title:"中国电信网上营业厅"}, {
+						title:"中国工商银行"}, {
+						title:"中国好声音第二期"}, {
+						title:"中国地图"}],callback:function(data){
+					 alert(data.title);				
+				}});
+			});
 		},
 		methods: {
 			goback: function() {

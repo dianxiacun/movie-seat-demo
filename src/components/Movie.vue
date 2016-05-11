@@ -55,13 +55,13 @@
                         <div class="cinema-all"><a href="#" class="open-popup">搜索<span class="icon icon-search"></span></a></div>
                     </div>
                 </div>
-                <div class="area-county" v-show="showCounty">
+<!--                 <div class="area-county" v-show="showCounty">
                     <div class="card city" v-for="county in counties">
                         <div class="card-content">
                             <div class="card-content-inner city-name">{{ county }}</div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="card-content cinema-detail" v-for="cinema in cinemas" @click="gocinemaschedule">
                     <div class="cinema-name"><b>{{ cinema.cinemaName }}</b></div>
                     <div class="cinema-supplier"><span class="cinema-supplier-detail">{{ cinema.supplierNum }}家服务</span></div>
