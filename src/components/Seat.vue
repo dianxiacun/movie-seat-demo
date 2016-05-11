@@ -31,11 +31,8 @@
 	      	  <div class="total-payment">
 	      	  	  <b>¥<span id="total">0.0</span></b>
 	      	  </div>
-	      	  <div class="confirm-order" v-if="isSelect" @click="goorder">
-	      	  	  <a href="" class="checkout-button" v-bind:class="{ 'confirm-seat' : isSelect}">{{ '确认选择'}}</a>
-	      	  </div>
-	      	  <div class="confirm-order" v-if="!isSelect">
-	      	  	  <a href="" class="checkout-button">{{ '请选座位'}}</a>
+	      	  <div class="confirm-order">
+	      	  	  <span class="checkout-button" v-bind:class="{ 'confirm-seat' : isSelect}">{{ isSelect ? '确认选择':'请选座位' }}</span>
 	      	  </div>
 	      </div>
       </div>
@@ -52,7 +49,8 @@ import vueToast from 'vue-toast'
 export default {
   data () {
     return {
-      isSelect: false,
+      isSelect: false, // 是否选座
+      islegal: true, // 表示所选座位是否造成孤座
       cinemaName: '金逸国际影城-虹口龙之梦IMAX店',
       movieName: '奇妙的森林',
       hallName: '钱宝厅',
@@ -70,6 +68,7 @@ export default {
   ready () {
   	let price = 80 //ticket price
   	let self = this
+  	let selectedSeats = []
   	let $cart = $('#selected-seats'), //座位区 
     $counter = $('#counter'), //票数 
     $total = $('#total'); //总计金额 
@@ -704,6 +703,7 @@ export default {
 	   
 	                $counter.text(sc.find('selected').length+1); 
 	                $total.text(recalculateTotal(sc)+price);
+	                selectedSeats.push(this.settings.id);
 	            	if (!self.isSelect) {
 	            		self.isSelect = true;
 	            		console.log('isSelect: ' + self.isSelect);
@@ -726,9 +726,11 @@ export default {
                 $total.text(recalculateTotal(sc)-price); 
                          
                 //删除已预订座位 
-                $('#cart-item-'+this.settings.id).remove(); 
-                //可选座 
-                
+                $('#cart-item-'+this.settings.id).remove();                  
+                var delSeatIndex = selectedSeats.indexOf(this.settings.id);
+                if (delSeatIndex > -1) {
+                	selectedSeats.splice(delSeatIndex, 1);
+                }
                 if (sc.find('selected').length == 1) {
                 	self.isSelect = false;
                 	console.log('isSelect: ' + self.isSelect);
@@ -737,6 +739,7 @@ export default {
                 	$('.selected-seats-info').hide();
                 	$('.selected-seats-warn').show();
                 }
+                //可选座
                 return 'available'; 
             } else if (this.status() == 'unavailable') { //已售出 
                 return 'unavailable'; 
@@ -747,6 +750,7 @@ export default {
     }); 
     //已售出的座位 
     sc.get(['1_2', '4_4','4_5','6_6','6_7','8_5','8_6','8_7','8_8', '10_1', '10_2']).status('unavailable');
+    console.log('status: ' + sc.get(['12_3']).status());
 
     function recalculateTotal(sc) { 
     var total = 0; 
@@ -755,7 +759,50 @@ export default {
     }); 
              
     return total; 
-	} 
+	}
+
+	$('.confirm-order').click(function() {
+		console.log('enter detect');
+		console.log(selectedSeats[0]);
+		var that = this;
+		for (var i = 0; i < selectedSeats.length; i++) {
+			var selectedSeatId = selectedSeats[i].split('_');
+			var row = parseInt(selectedSeatId[0]);
+			var label = parseInt(selectedSeatId[1]);
+			if (label === 1) {
+				var rightSeat1 = row + '_' + (label + 1);
+				console.log('right seat: ' + sc.get([rightSeat1]).status());
+				var rightSeat2 = row + '_' + (label + 2);
+				if (sc.get([rightSeat1]).status() == 'available' && sc.get([rightSeat2]).status() !== 'available') {
+					$.toast('不能空一个位置哦~');
+				} else {
+					window.location.href = '/order';
+				}
+			} else if (label === 2) {
+				console.log('label is 2: ');
+				var leftSeat1 = row + '_' + (label - 1);
+				var rightSeat1 = row + '_' + (label + 1);
+				var rightSeat2 = row + '_' + (label + 2);
+				if ((sc.get([leftSeat1]).status() == 'available') || ((sc.get([rightSeat1]).status()) == 'available' && sc.get([rightSeat2]).status() !== 'available')) {
+					console.log('enter toast');
+					$.toast('不能空一个位置哦~');
+				} else {
+					window.location.href = '/order';
+				}
+			} else {
+				var leftSeat1 = row + '_' + (label - 1);
+				var leftSeat2 = row + '_' + (label - 2);
+ 				var rightSeat1 = row + '_' + (label + 1);
+				var rightSeat2 = row + '_' + (label + 2);
+				console.log('enter normal');
+				if ((sc.get([leftSeat1]).status() == 'available' && sc.get([leftSeat2]).status() !== 'available') || (sc.get([rightSeat1]).status() == 'available' && sc.get([rightSeat2]).status() !== 'available')) {
+					$.toast('不能空一个位置哦~');
+				} else {
+					window.location.href = '/order';
+				}
+			}
+		}
+	});
 
   },
   created() {
